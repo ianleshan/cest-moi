@@ -13,7 +13,7 @@ h1{
   margin-top: 0px;
   text-align: center;
   background-image: url(splash.png);
-  background-size: contain;
+  background-size: cover;
   background-repeat: repeat-y repeat-x;
   background-attachment: fixed;
 }
