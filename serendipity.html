@@ -12,9 +12,10 @@
 
     <body>
 
-
+      <div id="all">
         <h1 id="p1">Loading...</h1>
         <div class="choices" id="c"></div>
+      </div>
 
         <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase.js"></script>
         <script>
@@ -28,6 +29,10 @@
             var database = firebase.database();
 
             function setIndex(x) {
+
+              var el = document.getElementById("all");
+
+//fadeOut(el);
                 var page = database.ref('/story/' + x);
 
                 document.getElementById("c").innerHTML = "";
@@ -46,10 +51,47 @@
                     var p = snapshot.val().p;
                     document.getElementById("p1").innerHTML = p;
                 });
+                fadeIn(el);
+
             }
 
             setIndex(1);
+
+
+            function fadeOut(el){
+  el.style.opacity = 1;
+
+  (function fade() {
+    if ((el.style.opacity -= .1) < 0) {
+      el.style.display = "none";
+    } else {
+      requestAnimationFrame(fade);
+    }
+  })();
+}
+
+// fade in
+
+function fadeIn(el, display){
+  el.style.opacity = 0;
+  el.style.display = display || "block";
+
+  (function fade() {
+    var val = parseFloat(el.style.opacity);
+    if (!((val += .05) > 1)) {
+      el.style.opacity = val;
+      requestAnimationFrame(fade);
+    }
+  })();
+}
         </script>
+
+        <!-- "number" : {
+          "p" : "paragraph",
+          "c" : {
+            "index" : "choices"
+          }
+        }, -->
 
     </body>
 
