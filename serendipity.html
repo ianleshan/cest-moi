@@ -31,27 +31,34 @@
             function setIndex(x) {
 
               var el = document.getElementById("all");
+              document.getElementById("c").innerHTML = "";
 
-//fadeOut(el);
+
+                //fadeOut(el);
                 var page = database.ref('/story/' + x);
 
-                document.getElementById("c").innerHTML = "";
-
-                database.ref("/story/" + x + "/" + "c" + "/").once('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot) {
-                        var childKey = childSnapshot.key;
-                        var childData = childSnapshot.val();
-                        document.getElementById("c").innerHTML =
-                            document.getElementById("c").innerHTML +
-                            '<h2 id="' + childKey + '" onClick="setIndex(' + childKey +')">' + childData + "</h2>";
-                    });
-                });
-
                 page.once('value').then(function(snapshot) {
-                    var p = snapshot.val().p;
-                    document.getElementById("p1").innerHTML = p;
+                  var b = snapshot.val().b;
+                  var m = snapshot.val().m;
+                  var h = snapshot.val().h;
+                  var p = snapshot.val().p;
+                  document.getElementById("p1").innerHTML = p;
+                  document.getElementById("p1").style.color = m;
+                  document.body.style.backgroundColor = b;
+
+                  database.ref("/story/" + x + "/" + "c" + "/").once('value', function(snapshot) {
+                      snapshot.forEach(function(childSnapshot) {
+                          var childKey = childSnapshot.key;
+                          var childData = childSnapshot.val();
+                          document.getElementById("c").innerHTML =
+                              document.getElementById("c").innerHTML +
+                              '<h2 id="' + childKey + '" onClick="setIndex(' + childKey +')"><font color="' + h +'">' + childData+  "</font></h2>";
+                      });
+                  });
+
+                  fadeIn(el);
                 });
-                fadeIn(el);
+
 
             }
 
@@ -59,31 +66,31 @@
 
 
             function fadeOut(el){
-  el.style.opacity = 1;
+                el.style.opacity = 1;
 
-  (function fade() {
-    if ((el.style.opacity -= .1) < 0) {
-      el.style.display = "none";
-    } else {
-      requestAnimationFrame(fade);
-    }
-  })();
-}
+                (function fade() {
+                  if ((el.style.opacity -= .1) < 0) {
+                    el.style.display = "none";
+                  } else {
+                    requestAnimationFrame(fade);
+                  }
+                })();
+              }
 
-// fade in
+                // fade in
 
-function fadeIn(el, display){
-  el.style.opacity = 0;
-  el.style.display = display || "block";
+                function fadeIn(el, display){
+                  el.style.opacity = 0;
+                  el.style.display = display || "block";
 
-  (function fade() {
-    var val = parseFloat(el.style.opacity);
-    if (!((val += .05) > 1)) {
-      el.style.opacity = val;
-      requestAnimationFrame(fade);
-    }
-  })();
-}
+                  (function fade() {
+                    var val = parseFloat(el.style.opacity);
+                    if (!((val += .05) > 1)) {
+                      el.style.opacity = val;
+                      requestAnimationFrame(fade);
+                    }
+                  })();
+                }
         </script>
 
         <!-- "number" : {
