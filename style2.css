@@ -30,11 +30,11 @@ a{
    color: #FFFF00;
  }
 
- a:hover{
+ h2:hover{
    color: #aaa;
  }
 
  .choices{
-   background-color: #313131;
+   /*background-color: #313131;*/
    padding: 20px
  }

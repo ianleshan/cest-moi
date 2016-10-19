@@ -12,33 +12,47 @@
 
     <body>
 
-        <h1>Lorem ipsum dolor sit amet, est illud detracto democritum no. Quo no tempor labore commune,
-            ut eam augue insolens, modo timeam nusquam ius ex. Vim te paulo invidunt, suas decore reprehendunt
-            sed no. Novum dolores platonem per ne, clita consequuntur ea sed. Ei has probo dicta dissentias,
-            vel eu quas labitur eloquentiam, eu has congue persius detracto. Sed vide luptatum ullamcorper ne.
-            Minimum torquatos et eum, eam debet consul liberavisse no, usu debitis quaestio te. Pertinax oportere
-            sententiae ex nam, forensibus persequeris theophrastus vel eu.
-        </h1>
 
-        <div class="choices">
-            <h2>
-              <a href="#">
-                Est id mazim sadipscing voluptatibus.
-              </a>
-            </h2>
+        <h1 id="p1">Loading...</h1>
+        <div class="choices" id="c"></div>
 
-            <h2>
-              <a href="#">
-                Stet tota qui eu, cum ut hinc dicant perfecto.
-              </a>
-            </h2>
+        <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase.js"></script>
+        <script>
+            var config = {
+                apiKey: "AIzaSyAyBvMMrbtxMyCiSGRNvyK0jHTpkScUAm4",
+                authDomain: "cest-moi.firebaseapp.com",
+                databaseURL: "https://cest-moi.firebaseio.com",
+            };
+            firebase.initializeApp(config);
 
-            <h2>
-              In quem tibique molestie eum.
-            </h2>
+            var database = firebase.database();
 
-        </div>
+            function setIndex(x) {
+                var page = database.ref('/story/' + x);
+
+                document.getElementById("c").innerHTML = "";
+
+                database.ref("/story/" + x + "/" + "c" + "/").once('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+                        document.getElementById("c").innerHTML =
+                            document.getElementById("c").innerHTML +
+                            '<h2 id="' + childKey + '" onClick="setIndex(' + childKey +')">' + childData + "</h2>";
+                    });
+                });
+
+                page.once('value').then(function(snapshot) {
+                    var p = snapshot.val().p;
+                    document.getElementById("p1").innerHTML = p;
+                });
+            }
+
+            setIndex(1);
+        </script>
 
     </body>
+
+
 
 </html>
