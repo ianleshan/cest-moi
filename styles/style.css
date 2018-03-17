@@ -3,7 +3,7 @@ body{
   background-color: #fff;
   margin: 0 !important;
   padding: 0 !important;
-background-image: url(splash2.png);
+  background-image: url(../pics/splash2.png);
   background-size: contain;
   background-repeat: repeat-x repeat-y;
 }
@@ -15,7 +15,7 @@ h1{
   line-height: 540px;
   margin-top: 0px;
   text-align: center;
-  background-image: url(splash.png);
+  background-image: url(../pics/splash.png);
   background-size: contain;
   background-repeat: repeat-x repeat-y;
 }
